@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,7 +30,7 @@ public class Pagamentos implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id; 
     
-    @Column(nullable = true)
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar dataVcto;
     
@@ -39,8 +41,12 @@ public class Pagamentos implements Serializable{
     @Temporal(TemporalType.DATE)
     private Calendar dataPgto;
     
-    @Column(nullable = false, precision = 2)
+    @Column(nullable = true, precision = 2)
     private Double valorPgto;
+    
+    @ManyToOne
+    @JoinColumn(name = "contrato_id", nullable = false)
+    private Contratos contrato;
 
     
     
@@ -87,6 +93,14 @@ public class Pagamentos implements Serializable{
 
     public void setValorPgto(Double valorPgto) {
         this.valorPgto = valorPgto;
+    }
+
+    public Contratos getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(Contratos contrato) {
+        this.contrato = contrato;
     }
     
     

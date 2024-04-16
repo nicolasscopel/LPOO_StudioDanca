@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -22,12 +23,15 @@ import javax.persistence.Table;
 public class Modalidade implements Serializable {
     
     @Id
+    @SequenceGenerator(name = "seq_modalidade", sequenceName = "seq_modalidade_id", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id; 
     
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 120)
     private String descricao;
 
+    
+    
     public Modalidade() {
     }
 
