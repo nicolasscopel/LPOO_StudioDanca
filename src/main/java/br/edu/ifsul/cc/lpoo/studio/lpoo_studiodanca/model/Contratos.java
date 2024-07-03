@@ -42,6 +42,7 @@ public class Contratos implements Serializable{
     private FormaPgto formapgto; // ASSOCIAÇÃO
 
     public Contratos() {
+        dataInicio = Calendar.getInstance();
     }
 
     public Integer getId() {

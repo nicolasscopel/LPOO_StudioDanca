@@ -117,7 +117,7 @@ public class TestePersistencia {
          c.setFormapgto(FormaPgto.PIX);
          c.setValorDesconto(10.00);
          
-         c.setDataInicio(Calendar.getInstance());
+         //c.setDataInicio(Calendar.getInstance()); //COMENTADO POIS FOI SETADO NO CONSTRUTOR
          
         
          jpa.persist(c); //PERSISTIU CONTRATO
