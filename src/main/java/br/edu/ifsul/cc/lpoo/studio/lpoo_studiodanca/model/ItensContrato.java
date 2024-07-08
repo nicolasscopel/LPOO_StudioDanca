@@ -23,6 +23,25 @@ public class ItensContrato implements Serializable{
    
    @Id
    private Integer idPacode;
+
+    public ItensContrato() {
+    }
+
+    public Integer getIdContrato() {
+        return idContrato;
+    }
+
+    public void setIdContrato(Integer idContrato) {
+        this.idContrato = idContrato;
+    }
+
+    public Integer getIdPacode() {
+        return idPacode;
+    }
+
+    public void setIdPacode(Integer idPacode) {
+        this.idPacode = idPacode;
+    }
    
    
     

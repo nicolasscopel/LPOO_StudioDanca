@@ -5,13 +5,19 @@
 package br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.test;
 
 import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.dao.PersistenciaJPA;
+import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.Alunos;
 import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.Contratos;
+import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.FolhaPagamento;
 import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.FormaPgto;
 import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.Modalidade;
 import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.Pacotes;
 import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.Pagamentos;
+import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.Pessoas;
+import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.Professores;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -140,4 +146,108 @@ public class TestePersistencia {
         
         jpa.persist(p); //PERSISTIU PAGAMENTO
      }
+      
+      
+      //@Test
+      public void testePersistenciaAlunoProfessorPessoas () throws Exception{
+          
+          SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+          Alunos a = new Alunos();
+         
+          
+          String dataAniver = "20/12/2002";
+          String dataInicio = "01/03/2024";
+          
+          a.setNome("Nicolas"); //NOME PESSOA
+            
+          a.setEmail("teste@teste.com"); // EMAIL PESSOA
+          
+          Calendar cal = Calendar.getInstance();
+          cal.setTime(sdf.parse(dataAniver));
+          a.setDataAniver(cal); //DATA ANIVERSARIO PESSOA
+          
+          a.setEndereco("Rua dos Andradas"); //ENDEREÇO PESSOA
+          
+          a.setFone("54999887766"); //TELEFONE PESSOA
+          
+          cal = Calendar.getInstance();
+          cal.setTime(sdf.parse(dataInicio));
+          a.setDataInicio(cal); //DATA  ALUNO INICIO
+          
+          a.setDataPgto(10); //DATA ALUNO PAGAMENTO
+          
+          jpa.persist(a);
+
+        
+        
+          Professores p = new Professores();
+          //List folhasPagamento = new ArrayList();
+          
+          String dataAdms = "10/01/2024";
+          String dataAniverProf = "30/04/1990";
+          
+          Calendar calAdms = Calendar.getInstance();
+          calAdms.setTime(sdf.parse(dataAdms));
+          p.setDataAdmissao(calAdms); //DATA ADMISSAO PROFESSOR
+          
+          Calendar dataAnProf = Calendar.getInstance();
+          dataAnProf.setTime(sdf.parse(dataAniverProf));
+          p.setDataAniver(dataAnProf); //ANIVERSARIO PESSOA
+          
+          p.setNome("Professor"); //NOME PESSOA
+          
+          p.setEmail("professor@teste.com"); // EMAIL PESSOA
+          
+          p.setEndereco("Rua dos Professores"); //ENDEREÇO PESSOA
+          
+          p.setFone("54999887766"); //TELEFONE PESSOA
+            
+ 
+          jpa.persist(p);
+          
+      }
+      
+      //@Test
+      public void testePersistenciaFolhasPagamentos () throws Exception{
+          
+          SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+          
+          Professores p =  new Professores();
+           
+          
+          p.setDataAdmissao(Calendar.getInstance());
+         
+          p.setNome("Professor Teste Find"); //NOME PESSOA
+          
+          p.setEmail("professor@teste.com"); // EMAIL PESSOA
+          
+          p.setEndereco("Rua dos Professores"); //ENDEREÇO PESSOA
+          
+          p.setFone("54999887766"); //TELEFONE PESSOA
+          
+       
+          p.setDataAniver(Calendar.getInstance());
+          
+          FolhaPagamento f =  new FolhaPagamento();
+          
+          f.setValorReceber(200.00);
+          
+          Calendar cal = Calendar.getInstance();
+          cal.setTime(sdf.parse("05/05/2024"));
+          f.setDataPagamento(cal);
+          
+          f.setProfessor(p);
+          
+         
+          jpa.persist(p);
+          
+          jpa.persist(f);
+          
+        
+          
+          //Professores teste = (Professores)jpa.find(Professores.class, 1);
+          //System.out.println("Nome professor: " + teste.getNome());
+      }
+      
+      
 }

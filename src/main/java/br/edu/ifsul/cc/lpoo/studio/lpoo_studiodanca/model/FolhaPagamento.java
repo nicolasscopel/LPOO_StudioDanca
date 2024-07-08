@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,5 +37,50 @@ public class FolhaPagamento implements Serializable{
     
     @Column(nullable = false)
     private Double valorReceber;
+    
+    @ManyToOne
+    @JoinColumn(name = "professor_id")
+    private Professores professor;
+    
+    public void calcularFolhaMes() {
+        // Implementação do método calcularFolhaMes
+    }
+
+    public FolhaPagamento() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Calendar getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Calendar dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public Double getValorReceber() {
+        return valorReceber;
+    }
+
+    public void setValorReceber(Double valorReceber) {
+        this.valorReceber = valorReceber;
+    }
+
+    public Professores getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professores professor) {
+        this.professor = professor;
+    }
+    
+    
     
 }

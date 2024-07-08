@@ -5,9 +5,11 @@
 package br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model;
 
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,9 +24,13 @@ import javax.persistence.TemporalType;
 @DiscriminatorValue("P")
 public class Professores extends Pessoas {
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     private Calendar dataAdmissao;
+    
+    
+    @OneToMany(mappedBy = "professor")
+    private List<FolhaPagamento> folhasPagamento;
 
     public Professores() {
     }
@@ -36,6 +42,16 @@ public class Professores extends Pessoas {
     public void setDataAdmissao(Calendar dataAdmissao) {
         this.dataAdmissao = dataAdmissao;
     }
+
+    public List<FolhaPagamento> getFolhasPagamento() {
+        return folhasPagamento;
+    }
+
+    public void setFolhasPagamento(List<FolhaPagamento> folhasPagamento) {
+        this.folhasPagamento = folhasPagamento;
+    }
+    
+    
     
     
     
