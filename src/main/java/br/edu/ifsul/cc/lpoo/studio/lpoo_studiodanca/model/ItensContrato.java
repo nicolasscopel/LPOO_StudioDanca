@@ -7,6 +7,8 @@ package br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,9 +26,14 @@ public class ItensContrato implements Serializable{
    @Id
    private Integer idPacode;
 
+    @ManyToOne
+    @JoinColumn(name = "pacote_id", nullable = false)
+    private Pacotes pacote;
+   
     public ItensContrato() {
     }
 
+    
     public Integer getIdContrato() {
         return idContrato;
     }
@@ -41,6 +48,14 @@ public class ItensContrato implements Serializable{
 
     public void setIdPacode(Integer idPacode) {
         this.idPacode = idPacode;
+    }
+
+    public Pacotes getPacote() {
+        return pacote;
+    }
+
+    public void setPacote(Pacotes pacote) {
+        this.pacote = pacote;
     }
    
    
