@@ -44,7 +44,7 @@ public class Contratos implements Serializable{
     private FormaPgto formapgto; // ASSOCIAÇÃO
     
     @OneToMany(mappedBy = "contrato")
-    private Collection<ItensContrato> itenscontrato; //AGREGAÇÃO
+    private Collection<ItensContrato> itenscontratos; //AGREGAÇÃO
 
     public Contratos() {
         dataInicio = Calendar.getInstance();
@@ -81,6 +81,14 @@ public class Contratos implements Serializable{
     public void setFormapgto(FormaPgto formapgto) {
         this.formapgto = formapgto;
     }
+
+    //public Collection<ItensContrato> getItenscontrato() {
+    //    return itenscontratos;
+    //}
+
+   // public void setItenscontrato(Collection<ItensContrato> itenscontrato) {
+   //     this.itenscontratos = itenscontrato;
+   // }
     
     
 }

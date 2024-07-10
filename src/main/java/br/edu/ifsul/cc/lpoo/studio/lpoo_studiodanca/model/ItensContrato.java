@@ -24,11 +24,15 @@ public class ItensContrato implements Serializable{
    private Integer idContrato;
    
    @Id
-   private Integer idPacode;
+   private Integer idPacote;
 
     @ManyToOne
     @JoinColumn(name = "pacote_id", nullable = false)
     private Pacotes pacote;
+   
+    @ManyToOne
+    @JoinColumn(name = "contrato_id", nullable = false)
+    private Contratos contrato;
    
     public ItensContrato() {
     }
@@ -42,20 +46,28 @@ public class ItensContrato implements Serializable{
         this.idContrato = idContrato;
     }
 
-    public Integer getIdPacode() {
-        return idPacode;
+    public Integer getIdPacote() {
+        return idPacote;
     }
 
-    public void setIdPacode(Integer idPacode) {
-        this.idPacode = idPacode;
+    public void setIdPacote(Integer idPacote) {
+        this.idPacote = idPacote;
     }
 
     public Pacotes getPacote() {
         return pacote;
     }
-
+    
     public void setPacote(Pacotes pacote) {
         this.pacote = pacote;
+    }
+
+    public Contratos getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(Contratos contrato) {
+        this.contrato = contrato;
     }
    
    
