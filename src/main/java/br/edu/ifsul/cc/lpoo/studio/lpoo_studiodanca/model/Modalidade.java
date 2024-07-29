@@ -4,7 +4,12 @@
  */
 package br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model;
 
+import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.dao.PersistenciaJPA;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +17,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+
 
 /**
  *
@@ -33,7 +45,12 @@ public class Modalidade implements Serializable {
     
     
     public Modalidade() {
+        
+       
     }
+        
+       
+    
 
     public Integer getId() {
         return id;
@@ -51,6 +68,16 @@ public class Modalidade implements Serializable {
         this.descricao = descricao;
     }
     
+
+    public List<Modalidade> getModalidades() {
+        
+    List modalidades = new ArrayList();
+        
+           
+            
+        return modalidades;
+        
+    }
 
     
 }

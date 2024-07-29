@@ -4,9 +4,12 @@
  */
 package br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.dao;
 
+import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.Modalidade;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -61,7 +64,12 @@ public class PersistenciaJPA implements InterfacePersistencia{
         entity.getTransaction().commit(); //comita a transacao (comando sql)  
     }
 
+    
+    
+    
+    }
+
    
     
     
-}
+
