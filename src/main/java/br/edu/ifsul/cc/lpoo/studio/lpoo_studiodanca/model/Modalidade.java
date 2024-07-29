@@ -22,6 +22,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 
 
@@ -41,8 +42,9 @@ public class Modalidade implements Serializable {
     
     @Column(nullable = false, length = 120)
     private String descricao;
-
     
+   
+
     
     public Modalidade() {
         
@@ -69,15 +71,8 @@ public class Modalidade implements Serializable {
     }
     
 
-    public List<Modalidade> getModalidades() {
-        
-    List modalidades = new ArrayList();
-        
-           
-            
-        return modalidades;
-        
-    }
+    
+   
 
     
 }

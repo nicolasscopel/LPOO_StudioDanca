@@ -65,6 +65,11 @@ public class PersistenciaJPA implements InterfacePersistencia{
     }
 
     
+    public List<Modalidade> getModalidades() {
+        
+        return entity.createQuery("SELECT m FROM Modalidade m", Modalidade.class).getResultList();
+    }
+    
     
     
     }

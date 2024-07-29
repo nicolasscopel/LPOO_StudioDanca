@@ -6,7 +6,10 @@ package br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.view;
 
 import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.dao.PersistenciaJPA;
 import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.Modalidade;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import org.junit.After;
@@ -18,35 +21,26 @@ import org.junit.Before;
  * @author Nicolas Scopel
  */
 public class TelaModalidades extends javax.swing.JFrame {
-
     
-    PersistenciaJPA jpa = new PersistenciaJPA();
-    
+   
+    ArrayList listaModalidades = new ArrayList();
     DefaultListModel mascaraItemLista = new DefaultListModel<>();
-
-    
-    @Before
-    public void setUp() {
-        
-        jpa.conexaoAberta();
-    }
-    
-    @After
-    public void tearDown() {
-        
-        jpa.fecharConexao();
-        
-    }
     
     /**
      * Creates new form TelaModalidades
      */
+    
     public TelaModalidades() {
         
         initComponents();
         lstModalidades.clearSelection();
         // passar lista modelo para o componente JList
         lstModalidades.setModel(mascaraItemLista);
+         
+        
+            mostraModalidades();
+        
+       
     }
 
     /**
@@ -116,13 +110,30 @@ public class TelaModalidades extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void mostraModalidades(){
+        
+        PersistenciaJPA jpa = new PersistenciaJPA();
+        jpa.conexaoAberta();
+        
+        List<Modalidade> modalidades = jpa.getModalidades();
+        mascaraItemLista.clear();
+        
+        
+        for(Modalidade Modalidade : modalidades){
+            mascaraItemLista.addElement(Modalidade.getDescricao());
+            listaModalidades.add(Modalidade.getDescricao());
+            
+        }
+        
+        jpa.fecharConexao();
+    }
     
     
     
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
-        
-       
+         
+        PersistenciaJPA jpa = new PersistenciaJPA();
         Modalidade m = new Modalidade();
         String desc;
         
@@ -131,12 +142,24 @@ public class TelaModalidades extends javax.swing.JFrame {
         System.out.println(desc);
         m.setDescricao(desc);
         
+        listaModalidades.add(desc);
         try {
             jpa.persist(m);
         } catch (Exception ex) {
             
         }
         
+        
+        
+        // Mostrando lista de palpites em uma lista (JList)
+        // limpa modelo de lista removendo todos os elementos
+        mascaraItemLista.removeAllElements();
+        // popular esse modelo de lista
+        for (Object modal: listaModalidades) {
+            mascaraItemLista.addElement(modal);
+        }
+        
+        jpa.fecharConexao();
        
     }//GEN-LAST:event_btnNovoActionPerformed
 
