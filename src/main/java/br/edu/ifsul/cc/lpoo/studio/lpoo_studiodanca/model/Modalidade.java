@@ -44,15 +44,11 @@ public class Modalidade implements Serializable {
     private String descricao;
     
    
-
-    
     public Modalidade() {
         
        
     }
-        
-       
-    
+          
 
     public Integer getId() {
         return id;
@@ -68,6 +64,11 @@ public class Modalidade implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        return  descricao ;
     }
     
 
