@@ -4,12 +4,7 @@
  */
 package br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model;
 
-import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.dao.PersistenciaJPA;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,12 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 
 
 
@@ -42,6 +34,12 @@ public class Modalidade implements Serializable {
     
     @Column(nullable = false, length = 120)
     private String descricao;
+    
+     //    Validação do Mapeamento Bidirecional: Garantir que o mapeamento @OneToMany em Professor 
+    //    e @ManyToOne em Modalidade estejam corretamente configurados para refletir o relacionamento bidirecional.
+    @ManyToOne
+    @JoinColumn(name="modalidade_professor")
+    private Professores professor;
     
    
     public Modalidade() {
@@ -66,6 +64,16 @@ public class Modalidade implements Serializable {
         this.descricao = descricao;
     }
 
+    public Professores getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professores professor) {
+        this.professor = professor;
+    }
+
+    
+  
     @Override
     public String toString() {
         return  descricao ;

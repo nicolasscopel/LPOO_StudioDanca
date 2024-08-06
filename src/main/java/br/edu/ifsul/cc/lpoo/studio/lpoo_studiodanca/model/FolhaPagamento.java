@@ -39,7 +39,7 @@ public class FolhaPagamento implements Serializable{
     private Double valorReceber;
     
     @ManyToOne
-    @JoinColumn(name = "professor_id")
+    @JoinColumn(name = "folha_pgto_professor")
     private Professores professor;
     
     public void calcularFolhaMes() {
@@ -49,13 +49,7 @@ public class FolhaPagamento implements Serializable{
     public FolhaPagamento() {
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    
 
     public Calendar getDataPagamento() {
         return dataPagamento;
@@ -73,13 +67,7 @@ public class FolhaPagamento implements Serializable{
         this.valorReceber = valorReceber;
     }
 
-    public Professores getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professores professor) {
-        this.professor = professor;
-    }
+  
     
     
     

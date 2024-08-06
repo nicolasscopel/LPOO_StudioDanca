@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -98,8 +99,16 @@ public class PersistenciaJPA implements InterfacePersistencia {
     }
     
     public List<Professores> getProfessores() {
-
-        return entity.createQuery("SELECT m FROM Professores m", Professores.class).getResultList();
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Professores> query = 
+                    em.createQuery("SELECT m FROM Professores m", 
+                            Professores.class);
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

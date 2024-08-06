@@ -236,7 +236,7 @@ public class TestePersistencia {
           cal.setTime(sdf.parse("05/05/2024"));
           f.setDataPagamento(cal);
           
-          f.setProfessor(p);
+        
           
          
           jpa.persist(p);

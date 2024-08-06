@@ -100,5 +100,8 @@ public abstract class Pessoas implements Serializable{
         this.endereco = endereco;
     }
     
-    
+     @Override
+    public String toString() {
+        return  nome ;
+    }
 }
