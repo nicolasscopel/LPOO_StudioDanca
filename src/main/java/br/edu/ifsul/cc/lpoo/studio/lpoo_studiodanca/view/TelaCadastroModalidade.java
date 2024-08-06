@@ -9,6 +9,8 @@ import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.Modalidade;
 import br.edu.ifsul.cc.lpoo.studio.lpoo_studiodanca.model.Professores;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -25,9 +27,7 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
     
     private Modalidade modalidade;
     PersistenciaJPA jpa;
-    
-    DefaultListModel<Modalidade> mascaraItemLista = new DefaultListModel<>();
-    
+       
     
 
 
@@ -37,15 +37,20 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
     public TelaCadastroModalidade(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        lstModalidades.clearSelection();
-        // passar lista modelo para o componente JList
-        lstModalidades.setModel(mascaraItemLista);
-
-        mostraModalidades();
-        
-        listarProfessores();
-
-        
+       
+        listarProfessores();       
+    }
+    
+    public void setModalidade(Modalidade modalidade) {   
+        this.modalidade = modalidade;
+        if (modalidade != null) {
+            txtID.setText(modalidade.getId() != null ? modalidade.getId().toString() : "");
+            txtDescricao.setText(modalidade.getDescricao());
+            cmbProfessores.getModel().setSelectedItem(modalidade.getProfessor().getNome());
+        } else {
+            JOptionPane.showMessageDialog(this, "Modalidade não selecionada!");
+            dispose();
+        }
     }
     
     public void listarProfessores(){
@@ -60,21 +65,7 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
         
     }
     
-    private void mostraModalidades() {
-
-        PersistenciaJPA jpa = new PersistenciaJPA();
-        jpa.conexaoAberta();
-
-        List<Modalidade> modalidades = jpa.getModalidades();
-        mascaraItemLista.clear();
-
-        for (Modalidade Modalidade : modalidades) {
-            mascaraItemLista.addElement(Modalidade);
-
-        }
-        lstModalidades.setModel(mascaraItemLista);
-        jpa.fecharConexao();
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,10 +83,8 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
         cmbProfessores = new javax.swing.JComboBox<>();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lstModalidades = new javax.swing.JList<>();
         jLabel4 = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -119,16 +108,7 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
             }
         });
 
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
-        jScrollPane1.setViewportView(lstModalidades);
-
-        jLabel4.setText("Modalidades");
+        jLabel4.setText("Id: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,64 +116,49 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDescricao)
-                            .addComponent(cmbProfessores, 0, 162, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addComponent(jLabel1)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
                         .addGap(18, 18, 18)
+                        .addComponent(cmbProfessores, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addGap(13, 13, 13))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(31, 31, 31))))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                            .addComponent(txtID))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel1)
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(cmbProfessores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cmbProfessores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnEditar))
+                    .addComponent(btnCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -204,41 +169,32 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        Modalidade modalidadeSelecionada =  lstModalidades.getSelectedValue();
-        PersistenciaJPA jpa = new PersistenciaJPA();
-       
-        
-        
-        if(modalidadeSelecionada != null){
-            
-            try {
-
-                jpa.conexaoAberta();
-                
-                Modalidade modalidadePersistido = (Modalidade)jpa.find(Modalidade.class, modalidadeSelecionada.getId());
-                modalidadePersistido.setDescricao(JOptionPane.showInputDialog(rootPane,"Informe a descricao nova",modalidadeSelecionada.getDescricao()));
-               
-                jpa.persist(modalidadePersistido);
-                
-                jpa.fecharConexao();
-                mostraModalidades();
-            } catch (Exception ex) {
-                System.out.println("Erro ao alterar modalidade selecionada: ");
-
-            } finally {
-                jpa.fecharConexao();
-            }
-            
-        }
-        
-        
-    }//GEN-LAST:event_btnEditarActionPerformed
-
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // Criando nova modalidade
 
-        if(modalidade == null){
+        if(modalidade != null){
+             jpa = new PersistenciaJPA();
+             
+            try { 
+
+                jpa.conexaoAberta();
+                Modalidade editada = (Modalidade)jpa.find(Modalidade.class, modalidade.getId());
+                editada.setDescricao(txtDescricao.getText());
+                editada.setProfessor((Professores)cmbProfessores.getSelectedItem());
+
+               
+               
+                jpa.persist(editada);
+                jpa.fecharConexao();
+                dispose();
+                
+            } catch (Exception ex) {
+                System.out.println("Erro");
+                dispose();
+            }
+            
+        } else {
+             
             modalidade = new Modalidade();
             modalidade.setDescricao(txtDescricao.getText());
             modalidade.setProfessor((Professores)cmbProfessores.getSelectedItem());
@@ -249,9 +205,8 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
             jpa.fecharConexao();
             dispose();
 
-        } else {
-
         }
+      
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
@@ -300,15 +255,13 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<Professores> cmbProfessores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<Modalidade> lstModalidades;
     private javax.swing.JTextField txtDescricao;
+    private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables
 }

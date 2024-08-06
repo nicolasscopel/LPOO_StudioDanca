@@ -160,12 +160,14 @@ public class TelaModalidades extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         Modalidade modalidadeSelecionada =  lstModalidades.getSelectedValue();
-        PersistenciaJPA jpa = new PersistenciaJPA();
+        //PersistenciaJPA jpa = new PersistenciaJPA();
         
         if(modalidadeSelecionada != null){
-            
-            try {
 
+          /*
+            try {
+                
+               
                 jpa.conexaoAberta();
                 
                 Modalidade modalidadePersistido = (Modalidade)jpa.find(Modalidade.class, modalidadeSelecionada.getId());
@@ -175,13 +177,25 @@ public class TelaModalidades extends javax.swing.JFrame {
                 
                 jpa.fecharConexao();
                 mostraModalidades();
+                 
+                
             } catch (Exception ex) {
                 System.out.println("Erro ao alterar modalidade selecionada: ");
 
             } finally {
                 jpa.fecharConexao();
             }
-            
+            */
+                
+                    
+                TelaCadastroModalidade dialog = new TelaCadastroModalidade(this, true);
+                dialog.setModalidade(modalidadeSelecionada);
+                dialog.setVisible(true);
+                mostraModalidades();
+                
+                
+                
+          
         }
         
     }//GEN-LAST:event_btnEditarActionPerformed
