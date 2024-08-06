@@ -45,6 +45,7 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
         this.modalidade = modalidade;
         if (modalidade != null) {
             txtID.setText(modalidade.getId() != null ? modalidade.getId().toString() : "");
+            txtID.setEditable(false);
             txtDescricao.setText(modalidade.getDescricao());
             cmbProfessores.getModel().setSelectedItem(modalidade.getProfessor().getNome());
         } else {
@@ -129,13 +130,14 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(cmbProfessores, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(txtID))))
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
