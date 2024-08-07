@@ -110,5 +110,20 @@ public class PersistenciaJPA implements InterfacePersistencia {
             return null;
         }
     }
+    
+    public List<Modalidade> getModalidades(String texto) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Modalidade> query = 
+                    em.createQuery(
+                            "SELECT m FROM Modalidade m WHERE LOWER(m.descricao) LIKE :descricao", 
+                            Modalidade.class);
+            query.setParameter("descricao", "%" + texto.toLowerCase() + "%");
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

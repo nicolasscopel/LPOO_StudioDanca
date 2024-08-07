@@ -47,7 +47,7 @@ public class TelaCadastroModalidade extends javax.swing.JDialog {
             txtID.setText(modalidade.getId() != null ? modalidade.getId().toString() : "");
             txtID.setEditable(false);
             txtDescricao.setText(modalidade.getDescricao());
-            cmbProfessores.getModel().setSelectedItem(modalidade.getProfessor().getNome());
+            //cmbProfessores.getModel().setSelectedItem(modalidade.getProfessor().getNome());
         } else {
             JOptionPane.showMessageDialog(this, "Modalidade não selecionada!");
             dispose();
